@@ -1,0 +1,18 @@
+- name: Leave Docker Swarm
+  docker_swarm:
+    state: absent
+    force: true
+
+- name: Join Docker Swarm - Worker 1
+  docker_swarm:
+    state: join
+    advertise_addr: worker1 
+    join_token: "{{ hostvars['join_token']['value'] }}"
+    remote_addrs: [ "manager:2377" ] 
+
+- name: Join Docker Swarm - Worker 2
+  docker_swarm:
+    state: join
+    advertise_addr: worker2 
+    join_token: "{{ hostvars['join_token']['value'] }}"
+    remote_addrs: [ "manager:2377" ]
